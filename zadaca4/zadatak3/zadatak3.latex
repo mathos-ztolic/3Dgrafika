@@ -1,0 +1,60 @@
+\documentclass{article}
+\nofiles
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+
+\title{De Casteljau algoritm proof}
+\author{Zlatko Tolić}
+\date{}
+
+\begin{document}
+	\maketitle
+	Cubic Bezier curve:
+	\begin{gather*}
+		n \in \mathbb{N}, \\
+		p_i \in \mathbb{R}^n, \quad i \in \{0, 1, 2, 3\} \\
+		f : [0, 1] \rightarrow \mathbb{R}^n \\\\
+		f(u) = (1-u)^3p_0  +  3(1-u)^2up_1 + 3(1-u)u^2p_2  +  u^3p_3 \\
+	\end{gather*}
+
+	De Casteljau algorithm:
+	\begin{gather*}
+		n \in \mathbb{N}, \\
+		p_i \in \mathbb{R}^n, \quad i \in \{0, 1, 2, 3\}
+	\end{gather*}
+	\begin{alignat*}{1}
+			r_i &: [0, 1] \rightarrow \mathbb{R}^n, i \in \{0, 1, 2\} \\
+			s_i &: [0, 1] \rightarrow \mathbb{R}^n, i \in \{0, 1\} \\
+			t_0 &: [0, 1] \rightarrow \mathbb{R}^n
+	\end{alignat*}
+	\begin{alignat*}{2}
+		r_i(u) &= (1 - u)p_i    &&+ up_{i+1} \\
+		s_i(u) &= (1 - u)r_i(u) &&+ ur_{i+1}(u) \\
+		t_0(u) &= (1 - u)s_0(u) &&+ us_1(u)
+	\end{alignat*}
+
+	Theorem:
+	\begin{gather*}
+		n \in \mathbb{N}, \\
+		\forall p_i \in \mathbb{R}^n, i \in {0, 1, 2, 3}, \text{ and } u \in [0, 1], \\
+		f(u) = t_0(u) \\
+	\end{gather*}
+
+	Proof:
+	\begin{gather*}
+		\begin{align*}
+			f(u) &= (1-u)^3p_0  +  3(1-u)^2up_1 + 3(1-u)u^2p_2  +  u^3p_3 \\
+			t_0(u) &= (1 - u)s_0(u) + us_1(u) =\\
+			&= (1 - u)((1 - u)r_0(u) + ur_1(u)) + u((1 - u)r_1(u) + ur_2(u)) = \\
+			&= (1 - u)((1 - u)((1 - u)p_0 + up_1) + u((1 - u)p_1 + up_2)) +\\
+			&+ u((1 - u)((1 - u)p_1 + up_2) + u((1 - u)p_2 + up_3)) = \\
+			&= (1 - u)((1 - u)^2p_0 + 2(1 - u)up_1 + u^2p_2) + u((1 - u)^2p_1 + 2(1 - u)up_2 + u^2p_3) = \\
+			&= (1 - u)^3p_0 + 2(1 - u)^2up_1 + (1 - u)u^2p_2 + (1 - u)^2up_1 + 2(1-u)u^2p_2 +  u^3p_3 = \\
+			&= (1 - u)^3p_0 + 3(1 - u)^2up_1 + 3 (1 - u)u^2p_2 + u^3p_3 =\\
+			&= f(u) \\
+		\end{align*} \\
+		\therefore f(u) = t_0(u) \\
+	\end{gather*}
+\end{document}

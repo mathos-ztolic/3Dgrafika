@@ -1,0 +1,3 @@
+#!/bin/sh
+pdflatex zadatak3.latex && rm zadatak3.log && zathura zadatak3.pdf
+
