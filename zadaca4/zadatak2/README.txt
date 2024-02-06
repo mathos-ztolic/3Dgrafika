@@ -1,0 +1,1 @@
+napravljeno za linux
